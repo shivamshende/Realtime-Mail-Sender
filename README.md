@@ -2,6 +2,8 @@
 
 A ReactJS application integrated with an email sender API that allows users to send emails in real-time.
 
+[Click here for live demo](https://email-sender-realtime.netlify.app/)
+
 ## Table of Contents
 
 - [Features](#features)
