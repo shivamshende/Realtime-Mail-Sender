@@ -1,19 +1,11 @@
-import React, { useRef, useState } from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faBroomWide } from '@fortawesome/pro-light-svg-icons';
-// import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
 
 function Page() {
-  // const fileInputRef = useRef(null);
   const [message, setMessage] = useState('');
 
-  // const handleFileClick = () => {
-  //   fileInputRef.current.click();
-  // };
-
   const handleSend = async () => {
-    const yourName = document.querySelector('.your-name').value
-    const yourEmail = document.querySelector('.your-email').value
+    const yourName = document.querySelector('.your-name').value;
+    const yourEmail = document.querySelector('.your-email').value;
     const subject = document.querySelector('.subject-input').value;
     const toEmail = document.querySelector('.send-to').value;
 
@@ -38,12 +30,17 @@ function Page() {
 
     try {
       const response = await fetch('https://mail-sender-api1.p.rapidapi.com/', options);
-      const result = await response.text();
+      const result = await response.json();
       console.log(result);
-      alert('Email sent Successfully!')
+
+      if (result.error) {
+        alert('Invalid Credentials! Please Try Again.');
+      } else {
+        alert('Mail sent successfully!');
+        clearData()
+      }
     } catch (error) {
       console.error(error);
-      alert('Mail not sent. Try again!')
     }
   };
 
@@ -61,8 +58,8 @@ function Page() {
       <div className="mail-composer">
         <div className="form">
           <input type="text" placeholder="Your Name" className="input your-name" />
-          <input type="text" placeholder="Your Email" className="input your-email" />
-          <input type="text" placeholder="Send To" className="input send-to" />
+          <input type="email" placeholder="Your Email" className="input your-email" />
+          <input type="email" placeholder="Send To" className="input send-to" />
           <input type="text" placeholder="Subject" className="input subject-input" />
           <div className="clear-data">
             <button className="clear" onClick={clearData}>
@@ -80,8 +77,6 @@ function Page() {
           </div>
         </div>
       </div>
-
-      {/* <button onClick={clearData}>Clear Data</button> */}
     </>
   );
 }
